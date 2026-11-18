@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 load_dotenv()
 
-MONGODB_URL = os.getenv("MONGODB_URL")
+MONGODB_URL = "mongodb+srv://ayyan143y_db_user:Ayyan6362123@ayyan.9abjyga.mongodb.net/"
 
 client = MongoClient(MONGODB_URL)
 

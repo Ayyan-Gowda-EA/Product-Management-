@@ -1,52 +1,57 @@
-
 from fastapi import FastAPI
 from models import product
+from database import products_collection
 
 app = FastAPI()
+
 
 @app.get("/")
 def greet():
     return "hi wellcome to my first fastapi"
 
 
-products = [
-    product(id=1, name="phone", description="budget friendly", price=45000, quantity=12),
-    product(id=2, name="laptop", description="Mac Book", price=84000, quantity=5),
-    product(id=3, name="watch", description="Titanic", price=10000, quantity=10)
-]
-
 @app.get("/product")
 def get_all_products():
-    return products
+    return list(products_collection.find({}, {"_id": 0}))
 
 
 @app.get("/product/{id}")
 def get_product_by_id(id: int):
-    for product in products:
-        if product.id == id:
-            return product
+    product_data = products_collection.find_one(
+        {"id": id},
+        {"_id": 0}
+    )
+
+    if product_data:
+        return product_data
+
     return "Product not found"
 
 
 @app.post("/product")
 def add_product(product: product):
-    products.append(product)
+    products_collection.insert_one(product.model_dump())
     return "product added successfully"
 
 
 @app.put("/product/{id}")
 def update_product(id: int, product: product):
-    for i in range(len(products)):
-        if products[i].id == id:
-            products[i] = product
-            return "product updated successfully"
+    result = products_collection.update_one(
+        {"id": id},
+        {"$set": product.model_dump()}
+    )
+
+    if result.matched_count:
+        return "product updated successfully"
+
     return "Product Not Found!!"
 
 
 @app.delete("/product/{id}")
 def delete_product(id: int):
-    for i in range(len(products)):
-        if products[i].id == id:
-            del products[i]
-            return "Product deleted"
+    result = products_collection.delete_one({"id": id})
+
+    if result.deleted_count:
+        return "Product deleted"
+
     return "Product Not Found!!"

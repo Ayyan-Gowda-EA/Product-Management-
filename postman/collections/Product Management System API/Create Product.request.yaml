@@ -1,0 +1,18 @@
+$kind: http-request
+url: http://127.0.0.1:8000/product
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "id": 1,
+      "name": "Laptop",
+      "description": "Dell Inspiron Laptop",
+      "price": 55000.0,
+      "quantity": 10
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0p4d}}"
+order: 7000

@@ -1,0 +1,9 @@
+$kind: http-request
+name: Get All Products.
+url: http://127.0.0.1:8000/product
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0b84}}"
+order: 6000

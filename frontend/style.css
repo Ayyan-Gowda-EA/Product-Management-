@@ -1,0 +1,303 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #d0d0d0;
+    margin-bottom: 25px;
+}
+
+.form-box {
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    margin-bottom: 25px;
+    color: #243b55;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 5px rgba(15, 118, 110, 0.2);
+}
+
+/* Profile Form Styling */
+
+.form-group {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #243b55;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    margin-bottom: 0;
+    height: 46px;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    background: #243b55;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #141e30;
+}
+
+#toggle-text {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+a {
+    color: #2463a5;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#message {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Dashboard Styling */
+
+.dashboard-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 30px;
+    background: #f1f5f9;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #1e3a8a, #0f766e);
+    color: white;
+    padding: 28px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 8px;
+}
+
+.dashboard-header p {
+    color: #e0f2fe;
+}
+
+#logout-btn {
+    width: auto;
+    padding: 11px 25px;
+    background: #dc3545;
+}
+
+#logout-btn:hover {
+    background: #b52a37;
+}
+
+.product-form-section,
+.product-list-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+.product-form-section h2,
+.product-list-section h2 {
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+#product-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+#product-form input {
+    margin-bottom: 0;
+}
+
+#save-btn {
+    grid-column: 1 / -1;
+    background: #0f766e;
+}
+
+#save-btn:hover {
+    background: #115e59;
+}
+
+#cancel-btn {
+    grid-column: 1 / -1;
+    background: #64748b;
+}
+
+#cancel-btn:hover {
+    background: #475569;
+}
+
+#refresh-btn {
+    width: auto;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background: #2563eb;
+}
+
+#refresh-btn:hover {
+    background: #1d4ed8;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th {
+    background: #1e3a8a;
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #333;
+}
+
+tr:hover {
+    background: #f0fdfa;
+}
+
+td button {
+    width: auto;
+    padding: 8px 13px;
+    margin: 3px;
+    font-size: 13px;
+}
+
+td button:first-child {
+    background: #2563eb;
+}
+
+td button:last-child {
+    background: #dc3545;
+}
+
+td button:first-child:hover {
+    background: #1d4ed8;
+}
+
+td button:last-child:hover {
+    background: #b52a37;
+}
+
+#product-message,
+#empty-message {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Mobile Responsive Styling */
+
+@media (max-width: 650px) {
+
+    .dashboard-container {
+        width: 96%;
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    #product-form {
+        grid-template-columns: 1fr;
+    }
+
+    #save-btn,
+    #cancel-btn {
+        grid-column: auto;
+    }
+
+    .form-box {
+        padding: 22px;
+    }
+}

@@ -1,0 +1,15 @@
+$kind: http-request
+name: Register User.
+url: http://127.0.0.1:8000/register
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "name": "Ayyan",
+      "email": "ayyan@gmail.com.com",
+      "password": "ayyan@123"
+    }
+auth:
+  type: bearer
+order: 11000

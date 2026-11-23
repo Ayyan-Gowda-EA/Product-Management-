@@ -1,0 +1,18 @@
+$kind: http-request
+url: http://127.0.0.1:8000/profile
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "full_name": "Ayyan",
+      "phone_number": "6362159025",
+      "date_of_birth": "2003-02-20",
+      "gender": "Male",
+      "address": "Mysuru, Karnataka"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_1e9n}}"
+order: 5000

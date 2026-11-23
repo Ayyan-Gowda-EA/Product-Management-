@@ -1,0 +1,18 @@
+$kind: http-request
+url: http://127.0.0.1:8000/product/1
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "id": 1,
+      "name": "Laptop",
+      "description": "Dell Inspiron Updated Version",
+      "price": 60000.0,
+      "quantity": 15
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0ptj}}"
+order: 9000

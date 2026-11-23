@@ -18,6 +18,14 @@ if (!token) {
 }
 
 
+// Display messages
+function showMessage(message, color = "red") {
+    productMessage.textContent = message;
+    productMessage.style.color = color;
+}
+
+
+// API Request Function
 async function apiRequest(url, method = "GET", body = null) {
 
     const options = {
@@ -43,7 +51,9 @@ async function apiRequest(url, method = "GET", body = null) {
     }
 
     if (!response.ok) {
-        throw new Error(data.detail || data.message || "Request failed");
+        throw new Error(
+            data.detail || data.message || "Request failed"
+        );
     }
 
     return data;
@@ -54,27 +64,21 @@ async function apiRequest(url, method = "GET", body = null) {
 async function loadUserDetails() {
 
     try {
-
         const user = await apiRequest("/me");
 
         document.getElementById("user-name").textContent = user.name;
         document.getElementById("user-email").textContent = user.email;
 
     } catch (error) {
-
-        productMessage.textContent = error.message;
-        productMessage.style.color = "red";
-
+        showMessage(error.message);
     }
 }
 
 
+// Load Products
 async function loadProducts() {
 
-    productMessage.textContent = "";
-
     try {
-
         const products = await apiRequest("/product");
 
         productTableBody.innerHTML = "";
@@ -131,12 +135,12 @@ async function loadProducts() {
         });
 
     } catch (error) {
-        productMessage.textContent = error.message;
-        productMessage.style.color = "red";
+        showMessage(error.message);
     }
 }
 
 
+// Add and Update Product
 productForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
@@ -155,31 +159,38 @@ productForm.addEventListener("submit", async function (event) {
 
         if (isEditing) {
 
-            await apiRequest(`/product/${id}`, "PUT", productData);
+            const data = await apiRequest(
+                `/product/${id}`,
+                "PUT",
+                productData
+            );
 
-            productMessage.textContent = "Product updated successfully!";
+            showMessage(data.message || "Product updated successfully!", "green");
 
         } else {
 
-            await apiRequest("/product", "POST", productData);
+            const data = await apiRequest(
+                "/product",
+                "POST",
+                productData
+            );
 
-            productMessage.textContent = "Product added successfully!";
+            showMessage(data.message || "Product added successfully!", "green");
         }
-
-        productMessage.style.color = "green";
 
         resetForm();
 
-        loadProducts();
+        await loadProducts();
 
     } catch (error) {
 
-        productMessage.textContent = error.message;
-        productMessage.style.color = "red";
+        // Display duplicate Product ID or other API errors
+        showMessage(error.message, "red");
     }
 });
 
 
+// Edit Product
 function editProduct(product) {
 
     isEditing = true;
@@ -196,13 +207,16 @@ function editProduct(product) {
     saveBtn.textContent = "Update Product";
     cancelBtn.hidden = false;
 
-    productMessage.textContent = "";
+    showMessage("", "red");
 }
 
 
+// Delete Product
 async function deleteProduct(id) {
 
-    const confirmDelete = confirm("Are you sure you want to delete this product?");
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this product?"
+    );
 
     if (!confirmDelete) {
         return;
@@ -212,21 +226,20 @@ async function deleteProduct(id) {
 
         const data = await apiRequest(`/product/${id}`, "DELETE");
 
-        productMessage.textContent = data.message;
-        productMessage.style.color = "green";
+        showMessage(data.message, "green");
 
         resetForm();
 
-        loadProducts();
+        await loadProducts();
 
     } catch (error) {
 
-        productMessage.textContent = error.message;
-        productMessage.style.color = "red";
+        showMessage(error.message, "red");
     }
 }
 
 
+// Reset Product Form
 function resetForm() {
 
     productForm.reset();
@@ -241,24 +254,26 @@ function resetForm() {
 }
 
 
+// Cancel Button
 cancelBtn.addEventListener("click", resetForm);
 
+
+// Refresh Button
 document.getElementById("refresh-btn").addEventListener("click", loadProducts);
 
 
+// Logout
 document.getElementById("logout-btn").addEventListener("click", async function () {
 
     try {
 
         const data = await apiRequest("/logout", "POST");
 
-        productMessage.textContent = data.message;
-        productMessage.style.color = "green";
+        showMessage(data.message, "green");
 
     } catch (error) {
 
-        productMessage.textContent = error.message;
-        productMessage.style.color = "red";
+        showMessage(error.message, "red");
 
     } finally {
 
@@ -269,5 +284,6 @@ document.getElementById("logout-btn").addEventListener("click", async function (
 });
 
 
+// Initial Loading
 loadUserDetails();
 loadProducts();

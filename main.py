@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends
+
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from models import product
@@ -34,6 +35,7 @@ def greet():
     }
 
 
+# Get All Products
 @app.get("/product")
 def get_all_products(
     current_user: dict = Depends(get_current_user)
@@ -41,6 +43,7 @@ def get_all_products(
     return list(products_collection.find({}, {"_id": 0}))
 
 
+# Get Product By ID
 @app.get("/product/{id}")
 def get_product_by_id(
     id: int,
@@ -57,11 +60,24 @@ def get_product_by_id(
     return {"message": "Product not found"}
 
 
+# Add Product with Duplicate ID Validation
 @app.post("/product")
 def add_product(
     product_data: product,
     current_user: dict = Depends(get_current_user)
 ):
+    # Check whether Product ID already exists
+    existing_product = products_collection.find_one(
+        {"id": product_data.id}
+    )
+
+    if existing_product:
+        raise HTTPException(
+            status_code=409,
+            detail="Product ID already exists. Please enter a different ID."
+        )
+
+    # Insert product if ID is unique
     products_collection.insert_one(product_data.model_dump())
 
     return {
@@ -69,6 +85,7 @@ def add_product(
     }
 
 
+# Update Product
 @app.put("/product/{id}")
 def update_product(
     id: int,
@@ -88,6 +105,7 @@ def update_product(
     return {"message": "Product not found"}
 
 
+# Delete Product
 @app.delete("/product/{id}")
 def delete_product(
     id: int,

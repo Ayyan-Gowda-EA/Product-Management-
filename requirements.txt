@@ -1,7 +1,10 @@
-
 fastapi
 uvicorn
 pymongo
 dnspython
 certifi
 python-dotenv
+PyJWT
+pwdlib[argon2]
+python-multipart
+Pillow

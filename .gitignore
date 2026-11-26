@@ -1,4 +1,24 @@
+# Python
 myenv/
 __pycache__/
 *.pyc
+
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# React and Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Editor settings
+.vscode/
+
+# macOS
+.DS_Store
+
+# Backup files
+main_backup.py

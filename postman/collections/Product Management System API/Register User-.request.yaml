@@ -6,10 +6,10 @@ body:
   type: json
   content: |-
     {
-      "name": "Ayyan",
-      "email": "ayyan@gmail.com.com",
-      "password": "ayyan@123"
+      "name": "{{name}}",
+      "email": "{{email}}",
+      "password": "{{password}}"
     }
 auth:
-  type: bearer
+  type: noauth
 order: 11000
